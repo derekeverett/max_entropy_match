@@ -129,7 +129,10 @@ def _read_particle_data():
         b'++':  2,
     }
 
-    for l in pkgutil.get_data('frzout', 'mass_width_2017.mcd').splitlines():
+
+    #for l in pkgutil.get_data('frzout', 'mass_width_2017.mcd').splitlines():
+    data_mcd = open('mass_width_2017.mcd', 'rb').read()
+    for l in data_mcd.splitlines():
         # skip comments
         if l.startswith(b'*'):
             continue
