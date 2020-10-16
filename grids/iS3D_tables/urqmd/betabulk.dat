@@ -1,4 +1,4 @@
-T[GeV]  muB[GeV]  betabulk_over_T4[fm^-4/GeV^4]
+T[GeV]  muB[GeV]  betabulk_over_T4[GeV^-1fm^-3]
 0.100000  0.000000  9.173387
 0.101000  0.000000  9.458146
 0.102000  0.000000  9.747904
