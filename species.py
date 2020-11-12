@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pkgutil
+#import pkgutil
 
 __all__ = ['species_dict']
 
@@ -129,7 +129,8 @@ def _read_particle_data():
         b'++':  2,
     }
 
-
+    #this reads mass_width_2017.mcd
+    """
     #for l in pkgutil.get_data('frzout', 'mass_width_2017.mcd').splitlines():
     data_mcd = open('mass_width_2017.mcd', 'rb').read()
     for l in data_mcd.splitlines():
@@ -195,7 +196,49 @@ def _read_particle_data():
                 has_anti=(q3 != 0 or charge != 0 or q1 != q2),
             )
             yield ID, data
+    """
 
+    #this reads the pdg-urqmd_v3.3+.dat file
+    #this file lists anti-particles for mesons but NOT baryons
+
+    with open('pdg-urqmd_v3.3+.dat', 'r') as pdgfile:
+        lines = pdgfile.readlines()
+        previous_ID = 0
+        for line in lines:
+            entries = line.split()
+
+            #extract pid
+            ID = int(entries[0])
+            #skip lines listing decay channels
+            if (previous_ID == ID):
+                continue
+            previous_ID = ID
+            # skip elementary particles
+            if abs(ID) < 100:
+                continue
+            name = entries[1]           # name
+            mass = float(entries[2])    # mass
+            width = float(entries[3])   # width
+            degen = float(entries[4])   # spin degeneracy
+            baryon = float(entries[5])  # baryon number
+            strange = float(entries[6]) # strangeness
+            charm = float(entries[7])   # charmness
+            bottom = float(entries[8])  # bottomness
+            iso_g = float(entries[9])   # isospin degeneracy
+            charge = float(entries[10]) # electric charge
+            decays = float(entries[11]) # decay channels
+
+            #pdg file lists anti-mesons but not anti-baryons
+            has_anti = (baryon > 0)
+            base_data = dict(
+                name=name,
+                mass=mass,
+                width=width,
+                degen=degen,
+                boson=bool(degen % 2),
+                has_anti=has_anti
+            )
+            yield ID, base_data
 
 species_dict = dict(_read_particle_data())
 
@@ -216,7 +259,7 @@ urqmd = [
     10311, 10321, 9000111, 9000211, 10221, 10313, 10323, 20113, 20213, 20223,
     315, 325, 115, 215, 225, 335, 20313, 20323, 10113, 10213, 10223, 100313,
     100323, 100113, 100213, 100223, 100333, 30313, 30323, 30113, 30213, 30223,
-    337, 9000221
+    337 #, 9000221
 ]
 
 
