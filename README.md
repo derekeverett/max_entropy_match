@@ -2,9 +2,9 @@
 
 
 
-Please see (link forthcoming) for the derivation and description of these methods, and please site (link forthcoming) if these methods are used in research.
+Please see (link forthcoming) for the derivation and description of these methods, and please cite (link forthcoming) if these methods are used in research.
 
-Please see the two jupyter notebooks `Solving_Energy_Bulk.ipynb` and `Solving_Energy_Shear.ipynb` for the methods of constructing the maximum entropy distribution.
+Please see the two jupyter notebooks `Solving_Energy_Bulk.ipynb` and `Solving_Energy_Shear.ipynb` for the numerical methods of constructing the maximum entropy distribution.
 
 The root solvers (just using scipy) are probably still too slow for phenomenology, but with some though and time I believe a full 3 or 4-d root solver could be written in e.g. `c++` that would be fast enough. 
 
